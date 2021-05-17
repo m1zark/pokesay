@@ -241,9 +241,9 @@ public class PokeSay {
         moves.add((moveset.get(3)==null) ? "&bNone" : "&b"+moveset.get(3).getActualMove().getAttackName());
 
         String Aura = "";
-        if (pokemon.getPersistentData().hasKey("AuraEN")) {
-            AuraDefinition ad = FileHelper.getAuraDefinitionForID(pokemon.getPersistentData().getInteger("AuraAD"));
-            EffectDefinition ed = FileHelper.getEffectDefinitionForID(pokemon.getPersistentData().getInteger("AuraED"));
+        if (pokemon.getPersistentData().getCompoundTag("Auras").hasKey("AuraEN")) {
+            AuraDefinition ad = FileHelper.getAuraDefinitionForID(pokemon.getPersistentData().getCompoundTag("Auras").getInteger("AuraAD"));
+            EffectDefinition ed = FileHelper.getEffectDefinitionForID(pokemon.getPersistentData().getCompoundTag("Auras").getInteger("AuraED"));
             Aura = ad.getDisplayName() + " " + ed.getDisplayName();
         }
 
