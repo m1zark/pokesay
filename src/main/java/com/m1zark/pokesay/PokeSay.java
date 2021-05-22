@@ -242,7 +242,6 @@ public class PokeSay {
         moves.add((moveset.get(2)==null) ? "&bNone" : "&b"+moveset.get(2).getActualMove().getAttackName());
         moves.add((moveset.get(3)==null) ? "&bNone" : "&b"+moveset.get(3).getActualMove().getAttackName());
 
-
         List<String> PokemonAuras = new ArrayList<>();
         AuraStorage auras = new AuraStorage(pokemon.getPersistentData());
         if(auras.hasAuras()) {
@@ -251,14 +250,7 @@ public class PokeSay {
             });
         }
 
-       String Aura = "";
-        /*
-        if (pokemon.getPersistentData().hasKey("Auras")) {
-            AuraDefinition ad = FileHelper.getAuraDefinitionForID(pokemon.getPersistentData().getInteger("AuraAD"));
-            EffectDefinition ed = FileHelper.getEffectDefinitionForID(pokemon.getPersistentData().getInteger("AuraED"));
-            Aura = ad.getDisplayName() + " " + ed.getDisplayName();
-        }
-        */
+        System.out.println(pokemon.getDisplayName() + " : " + PokemonAuras);
 
         DecimalFormat df = new DecimalFormat("#0.##");
         int numEnchants = 0;
@@ -295,8 +287,7 @@ public class PokeSay {
                 (new PokemonSpec("untradeable").matches(pokemon) ? "&4Untradeable" + "\n&r" : "") +
                 (new PokemonSpec("unbreedable").matches(pokemon) ? "&4Unbreedable" + "\n&r" : "") +
 
-                //(!Strings.isNullOrEmpty(Aura) ? "&7Aura: " + Aura + "\n&r" : "") +
-                (auras.hasAuras() ? "&7Aura: " + PokemonAuras.get(0) + (PokemonAuras.get(1) != null ? "/" + PokemonAuras.get(1) : "") + "\n&r" : "") +
+                (!PokemonAuras.isEmpty() ? "&7Aura(s): " + PokemonAuras.get(0) + (!Strings.isNullOrEmpty(PokemonAuras.get(1)) ? " + " + PokemonAuras.get(1) : "") + "\n&r" : "") +
 
 				(pokemon.hasGigantamaxFactor() ? "&cGigantamax Potential" + "\n&r": "") +
                 (!formName.isEmpty() ? "&7Form: &e" + Utils.capitalize(formName) + "\n&r" : "") +
