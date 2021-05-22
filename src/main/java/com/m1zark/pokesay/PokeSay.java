@@ -242,18 +242,23 @@ public class PokeSay {
         moves.add((moveset.get(2)==null) ? "&bNone" : "&b"+moveset.get(2).getActualMove().getAttackName());
         moves.add((moveset.get(3)==null) ? "&bNone" : "&b"+moveset.get(3).getActualMove().getAttackName());
 
+
         List<String> PokemonAuras = new ArrayList<>();
         AuraStorage auras = new AuraStorage(pokemon.getPersistentData());
         if(auras.hasAuras()) {
-            auras.getAuras().forEach(aura -> PokemonAuras.add(aura.getAuraDefinition().getDisplayName() + " " + aura.getEffectDefinition().getDisplayName()));
+            auras.getAuras().forEach(aura -> {
+                if(aura.isEnabled()) PokemonAuras.add(aura.getAuraDefinition().getDisplayName() + " " + aura.getEffectDefinition().getDisplayName());
+            });
         }
 
        String Aura = "";
+        /*
         if (pokemon.getPersistentData().hasKey("Auras")) {
             AuraDefinition ad = FileHelper.getAuraDefinitionForID(pokemon.getPersistentData().getInteger("AuraAD"));
             EffectDefinition ed = FileHelper.getEffectDefinitionForID(pokemon.getPersistentData().getInteger("AuraED"));
             Aura = ad.getDisplayName() + " " + ed.getDisplayName();
         }
+        */
 
         DecimalFormat df = new DecimalFormat("#0.##");
         int numEnchants = 0;
@@ -270,7 +275,7 @@ public class PokeSay {
         TextColor nameColor = TextColors.DARK_AQUA;
         String pokeName = "&3" + displayName;
 
-        if(auras.hasAuras()) {
+        if(!auras.hasAuras()) {
             nameColor = TextColors.AQUA; pokeName = "&b" + displayName;
         }
         if(pokemon.isShiny() && !pokemon.isEgg()) {
