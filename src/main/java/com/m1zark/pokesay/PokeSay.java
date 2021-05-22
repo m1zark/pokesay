@@ -21,6 +21,7 @@ import com.pixelmonmod.pixelmon.enums.EnumNature;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.enums.forms.EnumSpecial;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
+import de.waterdu.aquaauras.auras.AuraStorage;
 import de.waterdu.aquaauras.helper.FileHelper;
 import de.waterdu.aquaauras.structures.AuraDefinition;
 import de.waterdu.aquaauras.structures.EffectDefinition;
@@ -180,9 +181,10 @@ public class PokeSay {
         boolean isTrio = false;
         Stats stats = pokemon.getStats();
         Gender gender = pokemon.getGender();
+        EnumNature nature = pokemon.getMintNature() != null ? pokemon.getMintNature() : pokemon.getBaseNature();
+        String natureColor = pokemon.getMintNature() != null ? "&3" : "";
         EVStore eVsStore = null;
         IVStore ivStore = null;
-        EnumNature nature = pokemon.getNature();
         boolean wasHyperTrained = false;
         String[] ht = new String[]{"","","","","",""};
 
@@ -240,7 +242,13 @@ public class PokeSay {
         moves.add((moveset.get(2)==null) ? "&bNone" : "&b"+moveset.get(2).getActualMove().getAttackName());
         moves.add((moveset.get(3)==null) ? "&bNone" : "&b"+moveset.get(3).getActualMove().getAttackName());
 
-        String Aura = "";
+        List<String> PokemonAuras = new ArrayList<>();
+        AuraStorage auras = new AuraStorage(pokemon.getPersistentData());
+        if(auras.hasAuras()) {
+            auras.getAuras().forEach(aura -> PokemonAuras.add(aura.getAuraDefinition().getDisplayName() + " " + aura.getEffectDefinition().getDisplayName()));
+        }
+
+       String Aura = "";
         if (pokemon.getPersistentData().hasKey("Auras")) {
             AuraDefinition ad = FileHelper.getAuraDefinitionForID(pokemon.getPersistentData().getInteger("AuraAD"));
             EffectDefinition ed = FileHelper.getEffectDefinitionForID(pokemon.getPersistentData().getInteger("AuraED"));
@@ -262,7 +270,7 @@ public class PokeSay {
         TextColor nameColor = TextColors.DARK_AQUA;
         String pokeName = "&3" + displayName;
 
-        if(!Aura.isEmpty()) {
+        if(auras.hasAuras()) {
             nameColor = TextColors.AQUA; pokeName = "&b" + displayName;
         }
         if(pokemon.isShiny() && !pokemon.isEgg()) {
@@ -281,14 +289,17 @@ public class PokeSay {
         String pokeStats = pokerus + pokeName + " &7| &eLvl " + pokemon.getLevel() + (pokemon.getDynamaxLevel() != pokemon.getLevel() ? " &7(&3" + pokemon.getDynamaxLevel() + "&7)" : "") + " " + ((pokemon.isShiny()) ? "&7(&6Shiny&7)&r " : "") + "\n&r" +
                 (new PokemonSpec("untradeable").matches(pokemon) ? "&4Untradeable" + "\n&r" : "") +
                 (new PokemonSpec("unbreedable").matches(pokemon) ? "&4Unbreedable" + "\n&r" : "") +
-                (!Strings.isNullOrEmpty(Aura) ? "&7Aura: " + Aura + "\n&r" : "") +
+
+                //(!Strings.isNullOrEmpty(Aura) ? "&7Aura: " + Aura + "\n&r" : "") +
+                (auras.hasAuras() ? "&7Aura: " + PokemonAuras.get(0) + (PokemonAuras.get(1) != null ? "/" + PokemonAuras.get(1) : "") + "\n&r" : "") +
+
 				(pokemon.hasGigantamaxFactor() ? "&cGigantamax Potential" + "\n&r": "") +
                 (!formName.isEmpty() ? "&7Form: &e" + Utils.capitalize(formName) + "\n&r" : "") +
                 (isTrio ? "&7Ruby Enchant: &e" + (numEnchants != 0 ? numEnchants + " Available" : "None Available") + "\n&r" : "") +
                 (!Strings.isNullOrEmpty(customTexture) ? "&7Custom Texture: &e" + Utils.capitalize(customTexture) + "\n&r" : "") +
                 (!pokemon.getHeldItem().getDisplayName().equalsIgnoreCase("Air") ? "&7Held Item: &e" + heldItem + "\n&r" : "") +
                 "&7Ability: &e" + pokemon.getAbility().getName() + ((Utils.isHiddenAbility(pokemon)) ? " &7(&6HA&7)&r" : "") + "\n&r" +
-                "&7Nature: &e" + pokemon.getNature().name() + " &7(&a+" + Utils.getNatureShorthand(nature.increasedStat) + " &7| &c-" + Utils.getNatureShorthand(nature.decreasedStat) + "&7)" + "\n&r" +
+                "&7Nature: &e" + natureColor + nature.name() + " &7(&a+" + Utils.getNatureShorthand(nature.increasedStat) + " &7| &c-" + Utils.getNatureShorthand(nature.decreasedStat) + "&7)" + "\n&r" +
                 "&7Gender: " + pokeGender + "\n&r" +
                 "&7Size: &e" + pokemon.getGrowth().name() + "\n&r" +
                 "&7Happiness: &e" + pokemon.getFriendship() + "\n&r" +
