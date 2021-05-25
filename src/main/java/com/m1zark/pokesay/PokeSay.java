@@ -107,6 +107,9 @@ public class PokeSay {
 
                         String key2 = "{poke" + (storage.getSlot(pokemon) + 1) + "}";
                         placeholders.put(key2, this.buildPokemonStats(pokemon));
+
+                        String key3 = "{p" + (storage.getSlot(pokemon) + 1) + "}";
+                        placeholders.put(key3, this.buildPokemonStats(pokemon));
                     }
                 } catch (Exception partyLength) {
                     //

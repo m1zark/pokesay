@@ -14,8 +14,9 @@ public class ChatListener {
         Text msgBody = event.getFormatter().getBody().format();
         int occurrence = StringUtils.countMatches(msgBody.toPlain(), "{pokemon");
         int occurrence2 = StringUtils.countMatches(msgBody.toPlain(), "{poke");
+        int occurrence3 = StringUtils.countMatches(msgBody.toPlain(), "{p");
 
-        if ((msgBody.toPlain().contains("{pokemon") || msgBody.toPlain().contains("{poke") || msgBody.toPlain().contains("{item")) && (occurrence <= 6 || occurrence2 <= 6)) {
+        if ((msgBody.toPlain().contains("{pokemon") || msgBody.toPlain().contains("{poke") || msgBody.toPlain().contains("{p") || msgBody.toPlain().contains("{item")) && (occurrence <= 6 || occurrence2 <= 6 || occurrence3 <=6)) {
             event.getFormatter().setBody(PokeSay.getInstance().processPlaceholders(msgBody, PokeSay.getInstance().buildPlaceholders(player)));
         } else {
             event.getFormatter().setBody(msgBody);
