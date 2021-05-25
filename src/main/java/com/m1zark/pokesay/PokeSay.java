@@ -250,8 +250,6 @@ public class PokeSay {
             });
         }
 
-        System.out.println(pokemon.getDisplayName() + " : " + PokemonAuras);
-
         DecimalFormat df = new DecimalFormat("#0.##");
         int numEnchants = 0;
         try {
@@ -267,7 +265,7 @@ public class PokeSay {
         TextColor nameColor = TextColors.DARK_AQUA;
         String pokeName = "&3" + displayName;
 
-        if(!auras.hasAuras()) {
+        if(auras.hasAuras()) {
             nameColor = TextColors.AQUA; pokeName = "&b" + displayName;
         }
         if(pokemon.isShiny() && !pokemon.isEgg()) {
@@ -287,7 +285,7 @@ public class PokeSay {
                 (new PokemonSpec("untradeable").matches(pokemon) ? "&4Untradeable" + "\n&r" : "") +
                 (new PokemonSpec("unbreedable").matches(pokemon) ? "&4Unbreedable" + "\n&r" : "") +
 
-                (!PokemonAuras.isEmpty() ? "&7Aura(s): " + PokemonAuras.get(0) + (!Strings.isNullOrEmpty(PokemonAuras.get(1)) ? " + " + PokemonAuras.get(1) : "") + "\n&r" : "") +
+                (!PokemonAuras.isEmpty() ? "&7Aura(s): " + PokemonAuras.get(0) + (auras.aurasEnabled() > 1 ? " + " + PokemonAuras.get(1) : "") + "\n&r" : "") +
 
 				(pokemon.hasGigantamaxFactor() ? "&cGigantamax Potential" + "\n&r": "") +
                 (!formName.isEmpty() ? "&7Form: &e" + Utils.capitalize(formName) + "\n&r" : "") +
