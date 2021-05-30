@@ -303,8 +303,6 @@ public class PokeSay {
                 "&7Hidden Power: &e" + HiddenPower.getHiddenPowerType(pokemon.getStats().ivs).getLocalizedName() + "\n&r" +
                 "&7Caught Ball: &e" + pokemon.getCaughtBall().getItem().getLocalizedName() + "\n\n&r" +
 
-                //(wasHyperTrained ? "&7IVs in &3aqua &7have been hyper-trained!" + "\n\n&r" : "") +
-
                 "&7IVs: &e" + ivSum + "&7/&e186 &7(&a" + df.format((int)(((double)ivSum/186)*100)) + "%&7) \n"
                 + "&cHP: " + ht[0] + ivStore.getStat(StatsType.HP) + " &7/ " + "&6Atk: " + ht[1] + ivStore.getStat(StatsType.Attack) + " &7/ " + "&eDef: " + ht[2] + ivStore.getStat(StatsType.Defence) + "\n"
                 + "&9SpA: " + ht[3] + ivStore.getStat(StatsType.SpecialAttack) + " &7/ " + "&aSpD: " + ht[4] + ivStore.getStat(StatsType.SpecialDefence) + " &7/ " + "&dSpe: " + ht[5] + ivStore.getStat(StatsType.Speed) + "\n" +
