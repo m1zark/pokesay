@@ -25,7 +25,7 @@ public class Config {
     }
 
     private void loadConfig(){
-        Path configFile = Paths.get(PokeSay.getInstance().getConfigDir() + "/auras.conf");
+        Path configFile = Paths.get(PokeSay.getInstance().getConfigDir() + "/custom.conf");
 
         loader = HoconConfigurationLoader.builder().setPath(configFile).build();
 
@@ -39,9 +39,8 @@ public class Config {
             }
 
             CommentedConfigurationNode general = main.getNode("General");
-            general.getNode("Auras").getList(TypeToken.of(String.class), Lists.newArrayList("angelic,&fAngelic","apocalyptic,&8Apocalyptic"));
             general.getNode("CustomTextures").getList(TypeToken.of(String.class), Lists.newArrayList("event,&eEvent"));
-            general.getNode("Items_Blacklist").getList(TypeToken.of(String.class), Lists.newArrayList("minecraft:purple_shulker_box"));
+            general.getNode("Items_Blacklist").getList(TypeToken.of(String.class), Lists.newArrayList("minecraft:barrier"));
 
             loader.save(main);
         } catch (ObjectMappingException | IOException e) {
@@ -62,14 +61,6 @@ public class Config {
             main = loader.load();
         } catch (IOException var2) {
             var2.printStackTrace();
-        }
-    }
-
-    public static List<String> getAura() {
-        try {
-            return main.getNode("General","Auras").getList(TypeToken.of(String.class));
-        } catch (ObjectMappingException e) {
-            return Lists.newArrayList();
         }
     }
 
