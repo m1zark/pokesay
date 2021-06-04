@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import com.m1zark.pokesay.Utils.Utils;
 import com.m1zark.pokesay.config.Config;
 import com.m1zark.pokesay.listeners.ChatListener;
-import com.m1zark.pokesay.listeners.UChatListener;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.PokemonSpec;
 import com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic.HiddenPower;
@@ -22,9 +21,6 @@ import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.enums.forms.EnumSpecial;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import de.waterdu.aquaauras.auras.AuraStorage;
-import de.waterdu.aquaauras.helper.FileHelper;
-import de.waterdu.aquaauras.structures.AuraDefinition;
-import de.waterdu.aquaauras.structures.EffectDefinition;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -75,11 +71,7 @@ public class PokeSay {
         if(this.enabled) {
             this.config = new Config();
 
-            if (Sponge.getPluginManager().getPlugin("ultimatechat").isPresent()) {
-                Sponge.getEventManager().registerListeners(this, new UChatListener());
-            } else {
-                Sponge.getEventManager().registerListeners(this, new ChatListener());
-            }
+            Sponge.getEventManager().registerListeners(this, new ChatListener());
         }
     }
 
@@ -215,7 +207,7 @@ public class PokeSay {
         int evSum = 0;
         Moveset moveset = pokemon.getMoveset();
 
-       heldItem = !pokemon.getHeldItem().getDisplayName().equalsIgnoreCase("Air") ? pokemon.getHeldItem().getDisplayName() : "Nothing";
+        heldItem = !pokemon.getHeldItem().getDisplayName().equalsIgnoreCase("Air") ? pokemon.getHeldItem().getDisplayName() : "Nothing";
 
         if (stats != null) {
             eVsStore = stats.evs;
@@ -275,7 +267,7 @@ public class PokeSay {
             nameColor = TextColors.GOLD; pokeName = "&6" + displayName;
         }
         if(EnumSpecies.legendaries.contains(pokemon.getSpecies().name)) {
-            nameColor = TextColors.LIGHT_PURPLE; pokeName = "&d" + displayName;
+            nameColor = TextColors.LIGHT_PURPLE; pokeName = "&5" + displayName;
         }
         if(EnumSpecies.ultrabeasts.contains(pokemon.getSpecies().name)) {
             nameColor = TextColors.DARK_GREEN; pokeName = "&2" + displayName;
@@ -284,13 +276,16 @@ public class PokeSay {
             nameColor = TextColors.RED; pokeName = "&c" + displayName;
         }
 
-        String pokeStats = pokerus + pokeName + " &7| &eLvl " + pokemon.getLevel() + (pokemon.getDynamaxLevel() != pokemon.getLevel() ? " &7(&3" + pokemon.getDynamaxLevel() + "&7)" : "") + " " + ((pokemon.isShiny()) ? "&7(&6Shiny&7)&r " : "") + "\n&r" +
+        String pokeStats = pokerus + pokeName + " &7| &eLvl " + pokemon.getLevel() + " " + ((pokemon.isShiny()) ? "&7(&6Shiny&7)&r " : "") + "\n&r" +
                 (new PokemonSpec("untradeable").matches(pokemon) ? "&4Untradeable" + "\n&r" : "") +
                 (new PokemonSpec("unbreedable").matches(pokemon) ? "&4Unbreedable" + "\n&r" : "") +
 
-                (!PokemonAuras.isEmpty() ? "&7Aura(s): " + PokemonAuras.get(0) + (auras.aurasEnabled() > 1 ? " + " + PokemonAuras.get(1) : "") + "\n&r" : "") +
+                (!PokemonAuras.isEmpty() ? "&7Aura 1: " + PokemonAuras.get(0) + "\n&r" : "") +
+                (auras.aurasEnabled() > 1 ? "&7Aura 2: " + PokemonAuras.get(1) + "\n&r" : "") +
 
 				(pokemon.hasGigantamaxFactor() ? "&cGigantamax Potential" + "\n&r": "") +
+                (pokemon.getDynamaxLevel() > 0 ? "&7Dynamax Level: &d" + pokemon.getDynamaxLevel() + "\n&r": "") +
+
                 (!formName.isEmpty() ? "&7Form: &e" + Utils.capitalize(formName) + "\n&r" : "") +
                 (isTrio ? "&7Ruby Enchant: &e" + (numEnchants != 0 ? numEnchants + " Available" : "None Available") + "\n&r" : "") +
                 (!Strings.isNullOrEmpty(customTexture) ? "&7Custom Texture: &e" + Utils.capitalize(customTexture) + "\n&r" : "") +
