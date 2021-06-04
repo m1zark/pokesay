@@ -31,14 +31,24 @@ public class Utils {
 	}
 
 	public static String updatePokemonName(String name){
-		if(name.equalsIgnoreCase("MrMime")) return "Mr. Mime";
-		else if(name.equalsIgnoreCase("MimeJr")) return "Mime Jr.";
+		if(name.equalsIgnoreCase("MimeJr")) return "Mime Jr.";
+		else if(name.equalsIgnoreCase("MrMime")) return "Mr. Mime";
+		else if(name.equalsIgnoreCase("MrRime")) return "Mr. Rime";
 		else if(name.equalsIgnoreCase("Nidoranfemale")) return "Nidoran&d\u2640&r";
 		else if(name.equalsIgnoreCase("Nidoranmale")) return "Nidoran&b\u2642&r";
 		else if(name.equalsIgnoreCase("Farfetchd")) return "Farfetch'd";
-		else if(name.contains("Alolan")){
-			return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(name.replaceAll("\\d+", "")), " ");
-		}
+		else if(name.equalsIgnoreCase("Sirfetchd")) return "Sirfetch'd";
+		else if(name.equalsIgnoreCase("Hooh")) return "Ho-Oh";
+		else if(name.equalsIgnoreCase("PorygonZ")) return "Porygon-Z";
+		else if(name.equalsIgnoreCase("Jangmoo")) return "Jangmo-o";
+		else if(name.equalsIgnoreCase("Hakamoo")) return "Hakamo-o";
+		else if(name.equalsIgnoreCase("Kommoo")) return "Kommo-o";
+		else if(name.equalsIgnoreCase("Flabebe")) return "Flab\u00E9b\u00E9";
+		else if(name.equalsIgnoreCase("Tapu_Koko")) return "Tapu Koko";
+		else if(name.equalsIgnoreCase("Tapu_Lele")) return "Tapu Lele";
+		else if(name.equalsIgnoreCase("Tapu_Bulu")) return "Tapu Bulu";
+		else if(name.equalsIgnoreCase("Tapu_Fini")) return "Tapu Fini";
+		else if(name.equalsIgnoreCase("TypeNull")) return "Type: Null";
 
 		return name;
 	}
