@@ -17,7 +17,6 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.stats.Stats;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.extraStats.LakeTrioStats;
 import com.pixelmonmod.pixelmon.enums.EnumNature;
-import com.pixelmonmod.pixelmon.enums.EnumRibbonType;
 import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.enums.forms.EnumSpecial;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
@@ -182,7 +181,6 @@ public class PokeSay {
         EVStore eVsStore = null;
         IVStore ivStore = null;
         boolean wasHyperTrained = false;
-        EnumRibbonType displayRibbon = pokemon.getDisplayedRibbon();
         String[] ht = new String[]{"","","","","",""};
 
         String formName = "";
@@ -269,7 +267,7 @@ public class PokeSay {
             nameColor = TextColors.GOLD; pokeName = "&6" + displayName;
         }
         if(EnumSpecies.legendaries.contains(pokemon.getSpecies().name)) {
-            nameColor = TextColors.LIGHT_PURPLE; pokeName = "&5" + displayName;
+            nameColor = TextColors.LIGHT_PURPLE; pokeName = "&d" + displayName;
         }
         if(EnumSpecies.ultrabeasts.contains(pokemon.getSpecies().name)) {
             nameColor = TextColors.DARK_GREEN; pokeName = "&2" + displayName;
@@ -281,8 +279,6 @@ public class PokeSay {
         String pokeStats = pokerus + pokeName + " &7| &eLvl " + pokemon.getLevel() + " " + ((pokemon.isShiny()) ? "&7(&6Shiny&7)&r " : "") + "\n&r" +
                 (new PokemonSpec("untradeable").matches(pokemon) ? "&4Untradeable" + "\n&r" : "") +
                 (new PokemonSpec("unbreedable").matches(pokemon) ? "&4Unbreedable" + "\n&r" : "") +
-
-                (displayRibbon != EnumRibbonType.NONE ? "&7Ribbon: &e" + displayRibbon.name() + "\n&r" : "") +
 
                 (!PokemonAuras.isEmpty() ? "&7Aura 1: " + PokemonAuras.get(0) + "\n&r" : "") +
                 (auras.aurasEnabled() > 1 ? "&7Aura 2: " + PokemonAuras.get(1) + "\n&r" : "") +
