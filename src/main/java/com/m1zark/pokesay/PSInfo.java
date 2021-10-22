@@ -7,7 +7,7 @@ import org.spongepowered.api.text.format.TextColors;
 public class PSInfo {
     public static final String ID = "chatshow";
     public static final String NAME = "ChatShow";
-    public static final String VERSION = "1.5.10-S7.2";
+    public static final String VERSION = "1.5.11-S8.3.1";
     public static final String DESCRIPTION = "Displays Pokemon stats and items in chat.";
 
     public static final Text PREFIX = Text.of(TextColors.AQUA, "ChatShow ", TextColors.GRAY, "\u00bb ", TextColors.DARK_AQUA);

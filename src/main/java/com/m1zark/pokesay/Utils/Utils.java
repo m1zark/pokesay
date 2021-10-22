@@ -4,6 +4,7 @@ import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.EntityPixelmon;
 import com.pixelmonmod.pixelmon.entities.pixelmon.stats.StatsType;
+import com.pixelmonmod.pixelmon.enums.EnumSpecies;
 import com.pixelmonmod.pixelmon.storage.PlayerPartyStorage;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +26,7 @@ public class Utils {
 	@Nullable public static PlayerPartyStorage getPlayerStorage(Player player) {
 		return Pixelmon.storageManager.getParty((EntityPlayerMP) player);
 	}
+
 
 	public static boolean isHiddenAbility(Pokemon p) {
 		return p.getAbilitySlot() == 2;

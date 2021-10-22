@@ -33,7 +33,6 @@ repositories {
         url = 'http://repo.drnaylor.co.uk/artifactory/list/minecraft'
     }
     maven { url = 'https://jitpack.io' }
-    maven { url = "https://raw.github.com/FabioZumbi12/UltimateChat/mvn-repo/" }
     ivy {
         url "https://download.nodecdn.net/containers"
         layout "pattern", {
@@ -49,5 +48,5 @@ dependencies {
     compile 'org.spongepowered:spongeapi:7.2.0'
     compile 'org.projectlombok:lombok:1.18.8'
     compile 'io.github.nucleuspowered:nucleus-api:1.4.6-S7.0'
-    compile 'reforged:server:8.2.0@Pixelmon-1.12.2-8.2.0-server.jar'
+    compile 'reforged:server:8.3.1@Pixelmon-1.12.2-8.3.1-server.jar'
 }

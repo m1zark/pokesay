@@ -55,7 +55,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Getter
-@Plugin(id = PSInfo.ID, version = PSInfo.VERSION, name = PSInfo.NAME, description = PSInfo.DESCRIPTION, authors = "m1zark", dependencies={@Dependency(id="pixelmon")})
+@Plugin(id = PSInfo.ID, version = PSInfo.VERSION, name = PSInfo.NAME, description = PSInfo.DESCRIPTION, authors = "m1zark, Winglet", dependencies={@Dependency(id="pixelmon")})
 public class PokeSay {
     @Inject private Logger logger;
     @Inject private PluginContainer pluginContainer;
@@ -120,12 +120,11 @@ public class PokeSay {
 
         int i = 1;
         Hotbar playerHotbar = player.getInventory().query(Hotbar.class);
-        Iterator<Inventory> hotBarIterator = playerHotbar.slots().iterator();
 
-        while (hotBarIterator.hasNext()) {
-            Slot hotBarslot = (Slot) hotBarIterator.next();
+        for (Inventory inventory : playerHotbar.slots()) {
+            Slot hotBarslot = (Slot) inventory;
 
-            Optional<ItemStack> itemStackOptional = hotBarslot.peek();
+            Optional <ItemStack> itemStackOptional = hotBarslot.peek();
             if (itemStackOptional.isPresent() && itemStackOptional.get().getType() != ItemTypes.AIR && !itemStackOptional.get().isEmpty() && !isBlacklisted(itemStackOptional.get())) {
                 String key = "{item" + i + "}";
                 placeholders.put(key, buildItemName(itemStackOptional.get()));
@@ -148,8 +147,8 @@ public class PokeSay {
             if (matches != 0) {
                 String[] splitMessage = plainMsg.split(Pattern.quote(placeholder));
                 Text.Builder finalMsgBuilder = Text.builder();
-                for (int i = 0; i < splitMessage.length; i++) {
-                    finalMsgBuilder.append(Text.of(splitMessage[i]));
+                for (String s : splitMessage) {
+                    finalMsgBuilder.append(Text.of(s));
                     if (matches > 0) {
                         finalMsgBuilder.append(placeholders.get(placeholder));
                         matches--;
@@ -268,10 +267,10 @@ public class PokeSay {
         if(pokemon.isShiny() && !pokemon.isEgg()) {
             nameColor = TextColors.GOLD; pokeName = "&6" + displayName;
         }
-        if(EnumSpecies.legendaries.contains(pokemon.getSpecies().name)) {
-            nameColor = TextColors.LIGHT_PURPLE; pokeName = "&d" + displayName;
+        if(EnumSpecies.legendaries.contains(pokemon.getSpecies())) {
+            nameColor = TextColors.DARK_PURPLE; pokeName = "&5" + displayName;
         }
-        if(EnumSpecies.ultrabeasts.contains(pokemon.getSpecies().name)) {
+        if(EnumSpecies.ultrabeasts.contains(pokemon.getSpecies())) {
             nameColor = TextColors.DARK_GREEN; pokeName = "&2" + displayName;
         }
         if(!Strings.isNullOrEmpty(customTexture)) {
