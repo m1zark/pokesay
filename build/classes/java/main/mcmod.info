@@ -1,0 +1,37 @@
+[
+    {
+        "modid": "chatshow",
+        "name": "ChatShow",
+        "version": "1.5.11-S8.3.1",
+        "description": "Displays Pokemon stats and items in chat.",
+        "authorList": [
+            "m1zark, Winglet"
+        ],
+        "dependencies": [
+            "spongeapi@7.2.0",
+            "pixelmon"
+        ],
+        "requiredMods": [
+            "spongeapi@7.2.0",
+            "pixelmon"
+        ]
+    },
+    {
+        "modid": "pokesay",
+        "name": "Pokesay",
+        "version": "${version}",
+        "authorList": [
+            "m1zark"
+        ],
+        "mcversion": "${mcversion}",
+        "updateUrl": "",
+        "credits": "",
+        "logoFile": "",
+        "screenshots": []
+    },
+    {
+        "modid": "pokesay-master",
+        "name": "pokesay-master",
+        "version": "1.5.11-S8.3.1"
+    }
+]
